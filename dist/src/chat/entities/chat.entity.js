@@ -21,7 +21,7 @@ var ChatStatus;
     ChatStatus["CLOSED"] = "closed";
 })(ChatStatus = exports.ChatStatus || (exports.ChatStatus = {}));
 (0, graphql_1.registerEnumType)(ChatStatus, {
-    name: 'ChatStatus',
+    name: "ChatStatus",
 });
 let Chat = class Chat {
     constructor() {
@@ -44,12 +44,12 @@ __decorate([
 ], Chat.prototype, "status", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [member_entity_1.Member]),
-    (0, core_1.ManyToMany)(() => member_entity_1.Member, 'chats', { mappedBy: 'chats' }),
+    (0, core_1.ManyToMany)(() => member_entity_1.Member, "chats", { mappedBy: "chats" }),
     __metadata("design:type", Object)
 ], Chat.prototype, "members", void 0);
 __decorate([
     (0, graphql_1.Field)(() => [message_entity_1.Message], { nullable: true }),
-    (0, core_1.OneToMany)('Message', 'chat'),
+    (0, core_1.OneToMany)("Message", "chat"),
     __metadata("design:type", Array)
 ], Chat.prototype, "messages", void 0);
 __decorate([

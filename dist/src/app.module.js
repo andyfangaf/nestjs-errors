@@ -14,14 +14,28 @@ const graphql_1 = require("@nestjs/graphql");
 const apollo_1 = require("@nestjs/apollo");
 const apollo_server_core_1 = require("apollo-server-core");
 const throttler_1 = require("@nestjs/throttler");
+const hostile = require("hostile");
 const mikro_orm_config_1 = require("../mikro-orm.config");
 const nestjs_1 = require("@mikro-orm/nestjs");
 const tribe_module_1 = require("./tribe/tribe.module");
+const chat_module_1 = require("./chat/chat.module");
+const member_module_1 = require("./member/member.module");
+const message_module_1 = require("./message/message.module");
 const auth_service_1 = require("./auth/auth.service");
 const auth_module_1 = require("./auth/auth.module");
 const auth_guard_1 = require("./auth/auth.guard");
 const core_1 = require("@nestjs/core");
 let AppModule = class AppModule {
+    async onModuleInit() {
+        if (process.env.NODE_ENV === "development") {
+            hostile.set("127.0.0.1", process.env.HOSTNAME);
+        }
+    }
+    beforeApplicationShutdown() {
+        if (process.env.NODE_ENV === "development") {
+            hostile.remove("127.0.0.1", process.env.HOSTNAME);
+        }
+    }
 };
 AppModule = __decorate([
     (0, common_1.Module)({
@@ -33,13 +47,10 @@ AppModule = __decorate([
                 sortSchema: true,
                 playground: false,
                 plugins: [(0, apollo_server_core_1.ApolloServerPluginLandingPageLocalDefault)()],
-                context: (ctx) => {
-                    return ctx;
-                },
                 subscriptions: {
                     "subscriptions-transport-ws": {
-                        onConnect: (context) => {
-                            return null;
+                        onConnect: (connectionParams) => {
+                            return connectionParams;
                         },
                     },
                 },
@@ -53,6 +64,9 @@ AppModule = __decorate([
                 limit: 60,
             }),
             tribe_module_1.TribeModule,
+            chat_module_1.ChatModule,
+            member_module_1.MemberModule,
+            message_module_1.MessageModule,
             auth_module_1.AuthModule,
         ],
         controllers: [app_controller_1.AppController],

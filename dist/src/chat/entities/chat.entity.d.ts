@@ -1,5 +1,6 @@
-import { Collection } from '@mikro-orm/core';
-import { Message } from '../../message/entities/message.entity';
+import { Collection } from "@mikro-orm/core";
+import { Member } from "../../member/entities/member.entity";
+import { Message } from "../../message/entities/message.entity";
 export declare enum ChatStatus {
     OPEN = "open",
     CLOSED = "closed"

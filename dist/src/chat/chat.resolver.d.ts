@@ -1,7 +1,7 @@
-import { ChatService } from './chat.service';
-import { Chat } from './entities/chat.entity';
-import { CreateChatInput } from './dto/create-chat.input';
-import { UpdateChatInput } from './dto/update-chat.input';
+import { ChatService } from "./chat.service";
+import { Chat } from "./entities/chat.entity";
+import { CreateChatInput } from "./dto/create-chat.input";
+import { UpdateChatInput } from "./dto/update-chat.input";
 export declare class ChatResolver {
     private readonly chatService;
     private pubSub;

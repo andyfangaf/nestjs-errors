@@ -1,4 +1,5 @@
-import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
+require("dotenv").config();
+import { MikroOrmModuleSyncOptions } from "@mikro-orm/nestjs";
 
 const {
   DATABASE_HOST,
@@ -9,9 +10,9 @@ const {
 } = process.env;
 
 const config: MikroOrmModuleSyncOptions = {
-  type: 'postgresql',
-  entities: ['./dist/src/**/*.entity.js'],
-  entitiesTs: ['./src/**/*.entity.ts'],
+  type: "postgresql",
+  entities: ["./dist/src/**/*.entity.js"],
+  entitiesTs: ["./src/**/*.entity.ts"],
 
   // DB CONNECTION
   dbName: DATABASE_NAME,
@@ -21,11 +22,11 @@ const config: MikroOrmModuleSyncOptions = {
   password: DATABASE_PASS,
 
   seeder: {
-    path: './dist/seeders', // path to the folder with seeders
-    pathTs: './seeders', // path to the folder with TS seeders (if used, we should put path to compiled files in `path`)
-    defaultSeeder: 'DatabaseSeeder', // default seeder class name
-    glob: '!(*.d).{js,ts}', // how to match seeder files (all .js and .ts files, but not .d.ts)
-    emit: 'ts', // seeder generation mode
+    path: "./dist/seeders", // path to the folder with seeders
+    pathTs: "./seeders", // path to the folder with TS seeders (if used, we should put path to compiled files in `path`)
+    defaultSeeder: "DatabaseSeeder", // default seeder class name
+    glob: "!(*.d).{js,ts}", // how to match seeder files (all .js and .ts files, but not .d.ts)
+    emit: "ts", // seeder generation mode
     fileName: (className: string) => className, // seeder file naming convention
   },
 };

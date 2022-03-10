@@ -32,14 +32,15 @@ let ChatResolver = class ChatResolver {
     findOne(id) {
         return this.chatService.findOne(id);
     }
-    findAll(memberId) {
-        return this.chatService.findAll(memberId);
+    async findAll(memberId) {
+        const res = await this.chatService.findAll(memberId);
+        return res;
     }
     subscription(id) {
         return this.pubSub.asyncIterator(`chat:${id}`);
     }
     subscribeAll() {
-        console.log('calling subscription');
+        console.log("calling subscription");
         return this.pubSub.asyncIterator(`chats`);
     }
     updateChat(updateChatInput) {
@@ -56,37 +57,37 @@ let ChatResolver = class ChatResolver {
 };
 __decorate([
     (0, graphql_1.Mutation)(() => chat_entity_1.Chat),
-    __param(0, (0, graphql_1.Args)('createChatInput')),
+    __param(0, (0, graphql_1.Args)("createChatInput")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [create_chat_input_1.CreateChatInput]),
     __metadata("design:returntype", Promise)
 ], ChatResolver.prototype, "createChat", null);
 __decorate([
-    (0, graphql_1.Query)(() => chat_entity_1.Chat, { name: 'chat' }),
-    __param(0, (0, graphql_1.Args)('id')),
+    (0, graphql_1.Query)(() => chat_entity_1.Chat, { name: "chat" }),
+    __param(0, (0, graphql_1.Args)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ChatResolver.prototype, "findOne", null);
 __decorate([
-    (0, graphql_1.Query)(() => chat_entity_1.Chat, { name: 'chats' }),
-    __param(0, (0, graphql_1.Args)('memberId')),
+    (0, graphql_1.Query)(() => [chat_entity_1.Chat], { name: "chats" }),
+    __param(0, (0, graphql_1.Args)("memberId")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], ChatResolver.prototype, "findAll", null);
 __decorate([
     (0, graphql_1.Subscription)(() => chat_entity_1.Chat, {
-        name: 'chat',
+        name: "chat",
     }),
-    __param(0, (0, graphql_1.Args)('id')),
+    __param(0, (0, graphql_1.Args)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ChatResolver.prototype, "subscription", null);
 __decorate([
     (0, graphql_1.Subscription)(() => [chat_entity_1.Chat], {
-        name: 'chats',
+        name: "chats",
     }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
@@ -94,14 +95,14 @@ __decorate([
 ], ChatResolver.prototype, "subscribeAll", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_entity_1.Chat),
-    __param(0, (0, graphql_1.Args)('updateChatInput')),
+    __param(0, (0, graphql_1.Args)("updateChatInput")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [update_chat_input_1.UpdateChatInput]),
     __metadata("design:returntype", void 0)
 ], ChatResolver.prototype, "updateChat", null);
 __decorate([
     (0, graphql_1.Mutation)(() => chat_entity_1.Chat),
-    __param(0, (0, graphql_1.Args)('id')),
+    __param(0, (0, graphql_1.Args)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

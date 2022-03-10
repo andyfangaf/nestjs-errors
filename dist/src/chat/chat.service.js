@@ -24,11 +24,19 @@ let ChatService = class ChatService {
         return chat;
     }
     async findAll(memberId) {
-        return this.em.find(chat_entity_1.Chat, memberId);
+        const res = await this.em.find(chat_entity_1.Chat, {
+            members: {
+                id: {
+                    $in: [memberId],
+                },
+            },
+        }, { populate: true, orderBy: { updatedAt: core_1.QueryOrder.DESC } });
+        return res;
     }
     async findOne(id) {
         return await this.em.findOneOrFail(chat_entity_1.Chat, id, {
             populate: ['members', 'messages'],
+            orderBy: { messages: { createdAt: core_1.QueryOrder.DESC } },
         });
     }
     async update(id, updateChatInput) {
