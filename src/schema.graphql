@@ -1,0 +1,138 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Chat {
+  createdAt: String!
+  id: String!
+  members: [Member!]!
+  messages: [Message!]
+  status: ChatStatus!
+  updatedAt: DateTime!
+}
+
+enum ChatStatus {
+  CLOSED
+  OPEN
+}
+
+input CreateChatInput {
+  members: [String!]!
+}
+
+input CreateMemberInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateMessageInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateTribeInput {
+  name: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+type Member {
+  avatar: String
+  chats: [Chat!]
+  id: String!
+  messages: [Message!]!
+  name: String
+  role: MemberRole!
+  tribe: Tribe!
+}
+
+enum MemberRole {
+  ADMIN
+  PUBLIC
+  STAFF
+}
+
+type Message {
+  chat: Chat!
+  content: JSON
+  createdAt: String!
+  id: String!
+  sender: Member!
+  type: String!
+  updatedAt: String!
+}
+
+type Mutation {
+  account(updateMemberInput: UpdateMemberInput!): Member!
+  createChat(createChatInput: CreateChatInput!): Chat!
+  createMember(createMemberInput: CreateMemberInput!): Member!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  createTribe(createTribeInput: CreateTribeInput!): Tribe!
+  removeChat(id: String!): Chat!
+  removeMember(id: Int!): Member!
+  removeMessage(id: String!): Message!
+  removeTribe(id: String!): Tribe
+  updateChat(updateChatInput: UpdateChatInput!): Chat!
+  updateMember(updateMemberInput: UpdateMemberInput!): Member!
+  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
+  updateTribe(updateTribeInput: UpdateTribeInput!): Tribe!
+}
+
+type Query {
+  account: Member!
+  chat(id: String!): Chat!
+  chats(memberId: String!): Chat!
+  member(id: String!): Member!
+  members(tribeId: String!): [Member!]!
+  message(id: String!): Message!
+  tribe(id: String!): Tribe!
+}
+
+type Subscription {
+  chat(id: String!): Chat!
+  chats: [Chat!]!
+}
+
+type Tribe {
+  createdAt: DateTime!
+  id: String!
+  logo: String
+  members: [Member!]!
+  name: String
+  tier: TribeTier!
+}
+
+enum TribeTier {
+  FREE
+  GROWTH
+}
+
+input UpdateChatInput {
+  id: String!
+  members: [String!]
+}
+
+input UpdateMemberInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateMessageInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: String!
+}
+
+input UpdateTribeInput {
+  id: String!
+  name: String
+}
