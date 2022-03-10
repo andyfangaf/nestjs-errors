@@ -13,8 +13,6 @@ exports.Chat = exports.ChatStatus = void 0;
 const uuid_1 = require("uuid");
 const core_1 = require("@mikro-orm/core");
 const graphql_1 = require("@nestjs/graphql");
-const member_entity_1 = require("../../member/entities/member.entity");
-const message_entity_1 = require("../../message/entities/message.entity");
 var ChatStatus;
 (function (ChatStatus) {
     ChatStatus["OPEN"] = "open";
@@ -27,7 +25,6 @@ let Chat = class Chat {
     constructor() {
         this.id = (0, uuid_1.v4)();
         this.status = ChatStatus.OPEN;
-        this.members = new core_1.Collection(this);
         this.createdAt = new Date();
         this.updatedAt = new Date();
     }
@@ -42,16 +39,6 @@ __decorate([
     (0, core_1.Enum)(() => ChatStatus),
     __metadata("design:type", String)
 ], Chat.prototype, "status", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [member_entity_1.Member]),
-    (0, core_1.ManyToMany)(() => member_entity_1.Member, "chats", { mappedBy: "chats" }),
-    __metadata("design:type", Object)
-], Chat.prototype, "members", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => [message_entity_1.Message], { nullable: true }),
-    (0, core_1.OneToMany)("Message", "chat"),
-    __metadata("design:type", Array)
-], Chat.prototype, "messages", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String),
     (0, core_1.Property)(),
